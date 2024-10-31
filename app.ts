@@ -19,4 +19,12 @@ class Checkout {
         this.pricingRules = pricingRules;
     }
 
+    addItem(sku: string): void {
+        if (!this.basket[sku]) {
+            this.basket[sku] = 0;
+        }
+        this.basket[sku]++;
+        
+    }
+
 }
