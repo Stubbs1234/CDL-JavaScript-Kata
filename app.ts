@@ -27,4 +27,19 @@ class Checkout {
         
     }
 
+    getTotal(): number {
+        let total = 0;
+        for (const [sku, quantity] of Object.entries(this.basket)) {
+            const rule = this.pricingRules[sku];
+            if (rule.discountQuantity && rule.discountPrice) {
+                const discountedSets = Math.floor(quantity / rule.discountQuantity);
+                const remainingItems = quantity % rule.discountQuantity;
+                total += discountedSets * rule.discountPrice + remainingItems * rule.unitPrice;
+            } else {
+                total += quantity * rule.unitPrice;
+            }
+        }
+        return total;
+    }
+
 }
